@@ -21,6 +21,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Locale;
 
 @Component
@@ -46,24 +47,36 @@ public class ApplicationRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         Faker faker = new Faker(Locale.ITALY);
-        for(int i =0;i<=20;i++){
+        for(int i =0;i<=100;i++){
           //  User genericUser = User.builder().build();
             //  userDAO.save(genericUser);
             //Building genericBuilding = Building.builder().build();
             //buildingDAO.save(genericBuilding);
-            Reservation reservation =  new Reservation(
+      /*      Reservation reservation =  new Reservation(
                     LocalDate.now().plusDays(2),
            stationRepository.findRandomStation(),
           userRepository.findRandomUser()
-          );
+          );*/
+
             try{
-                reservationDAO.save(reservation);
+               List<Reservation> reservationList= reservationDAO.findAll();
+                   reservationList.forEach(r->{
+                        reservationDAO.findByIdAndDelete(r.getId());
+                           System.out.println("La prenotazione era scaduta.");
+                   });
+
+
+              //  Reservation reservation =  new Reservation(
+                //        LocalDate.now().minusDays(1),
+                  //      stationRepository.findRandomStation(),
+                    //    userRepository.findRandomUser()
+             //   );
+               // reservationDAO.save(reservation);
             }catch (PersonalException p){
                 System.err.println(p.getMessage());
             }
 
         }
-
 
         System.out.println("****************************** FIND ALL ***********************");
 

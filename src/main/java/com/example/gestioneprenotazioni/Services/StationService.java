@@ -22,10 +22,9 @@ public class StationService implements StationDao {
     @Override
     public void findByCodiceUnivocoAndUpdateIsItFree(long codiceUnivoco) {
         Station found = this.findByCodiceUnivoco(codiceUnivoco);
-        found.setItFree(!found.isItFree());
-        // 3. Risalvo lo user modificato
+        found.setItFree(false);
         stationRepo.save(found);
-        //log.info("User con id " + id + " aggiornato con successo!");
+        log.info("La postazione è attiva : " + found.getIsItFree());
     }
 
     @Override

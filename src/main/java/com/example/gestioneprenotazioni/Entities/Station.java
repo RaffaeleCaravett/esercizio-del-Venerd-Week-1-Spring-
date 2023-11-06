@@ -45,4 +45,8 @@ public class Station {
     public void setItFree(boolean itFree) {
         isItFree = itFree;
     }
+
+    public boolean getIsItFree() {
+        return isItFree;
+    }
 }
